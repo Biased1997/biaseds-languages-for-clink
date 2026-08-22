@@ -1,0 +1,51 @@
+name: Publish language packs
+on:
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: Clink-iOS branch or tag to publish
+        required: true
+        default: main
+      version:
+        description: Immutable release version (for example 2026.08.22)
+        required: true
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: anti-ltd/Clink-iOS
+          ref: ${{ inputs.source_ref || 'main' }}
+          path: source
+      - name: Build manifest and release assets
+        run: |
+          set -euo pipefail
+          V="${{ inputs.version || github.ref_name }}"; mkdir out
+          python3 - "$V" <<'PY'
+          import hashlib,json,pathlib,shutil,sys
+          root=pathlib.Path('source/Resources/Lexicons'); out=pathlib.Path('out'); assets=out/'assets'; packs=[]
+          for clex in sorted(root.glob('*.clex')):
+            code=clex.stem; files=[]
+            for p in [*root.glob(code+'.*'), root/(code+'.mlmodelc')]:
+              if p.is_dir():
+                for q in p.rglob('*'):
+                  if q.is_file(): files.append(q)
+              elif p.is_file(): files.append(p)
+            for p in files:
+              rel=p.relative_to(root).as_posix(); name=(code+'--'+rel.replace('/','--')); target=assets/name; target.parent.mkdir(parents=True,exist_ok=True); shutil.copy2(p,target)
+              data=target.read_bytes(); filespec={'path':rel,'url':f'https://github.com/anti-ltd/clink-language-packs/releases/download/{sys.argv[1]}/{name}','sha256':hashlib.sha256(data).hexdigest(),'byteCount':len(data)}
+              packs.append((code,filespec))
+          grouped={}
+          for code,a in packs: grouped.setdefault(code,[]).append(a)
+          json.dump({'version':sys.argv[1],'packs':[{'code':c,'version':sys.argv[1],'assets':a} for c,a in grouped.items()]},open(out/'manifest.json','w'),separators=(',',':'))
+          PY
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.version || github.ref_name }}
+          generate_release_notes: true
+          files: out/**
