@@ -2,7 +2,7 @@
   <img src="icon-1024.png" width="96" alt="Clink app icon">
 </p>
 
-<h1 align="center">Clink Language Packs</h1>
+<h1 align="center">Clink language packs</h1>
 
 <p align="center">Open language resources for Clink keyboards.</p>
 
@@ -131,11 +131,11 @@ This is optional. Do it only after the dictionary and `.cngm` model feel good. T
 
 The tool writes `Lexicons/tok.mlmodelc/` and `Lexicons/tok.bpevocab`. Keep both. Do not rename, edit, or mix them. If the training step is too much for your project, skip it: Clink still works with the dictionary and next-word model.
 
-## Community repositories
+## Add your repository to Clink
 
-Community language repositories are for languages that Clink does not maintain itself, including conlangs and regional projects. Clink never bundles, recommends, or silently adds them. Someone chooses a repository in the app, then chooses which of its languages to install.
+After the GitHub Action publishes your first release, open **General → Repositories** in Clink and enter `owner/repository`, for example `your-name/toki-pona-clink`. Then open **Languages**. Your packs appear in **Community**, separate from Clink's own packs. Clink never bundles, recommends, or silently adds community repositories.
 
-### What Clink verifies
+## What Clink verifies
 
 Clink only accepts public HTTPS GitHub release manifests. It derives the manifest address from the repository URL, so a repository cannot point the app at an unrelated host. Every download must come from that same GitHub repository's release, use an approved language-pack file type, stay within size limits, match the manifest's byte count, and match its SHA-256 hash.
 
