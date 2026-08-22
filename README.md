@@ -8,6 +8,10 @@
 
 Clink ships English in the app, then downloads the languages you choose. A pack contains its lexicon, prediction data, and where available its neural model or input-method tables. Everything stays on the device once installed.
 
+## Official Clink repositories
+
+[Language packs](https://github.com/anti-ltd/clink-language-packs) · [Layouts](https://github.com/anti-ltd/clink-layouts) · [Profiles](https://github.com/anti-ltd/clink-profiles) · [Themes](https://github.com/anti-ltd/clink-themes) · [Panels](https://github.com/anti-ltd/clink-panels) · [Actions](https://github.com/anti-ltd/clink-actions)
+
 ## Supported languages
 
 | | | |
