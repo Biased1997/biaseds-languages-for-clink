@@ -23,7 +23,9 @@ jobs:
           root=pathlib.Path('Lexicons'); out=pathlib.Path('out'); assets=out/'assets'; packs=[]
           for clex in sorted(root.glob('*.clex')):
             code=clex.stem; files=[]
-            for p in [*root.glob(code+'.*'), root/(code+'.mlmodelc')]:
+            # The glob already includes the optional .mlmodelc directory. Adding
+            # it separately duplicates every model file in the manifest.
+            for p in root.glob(code+'.*'):
               if p.is_dir():
                 for q in p.rglob('*'):
                   if q.is_file(): files.append(q)
