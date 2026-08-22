@@ -2,10 +2,6 @@ name: Publish language packs
 on:
   workflow_dispatch:
     inputs:
-      source_ref:
-        description: Clink-iOS branch or tag to publish
-        required: true
-        default: main
       version:
         description: Immutable release version (for example 2026.08.22)
         required: true
@@ -18,17 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          repository: anti-ltd/Clink-iOS
-          ref: ${{ inputs.source_ref || 'main' }}
-          path: source
       - name: Build manifest and release assets
         run: |
           set -euo pipefail
           V="${{ inputs.version || github.ref_name }}"; mkdir out
           python3 - "$V" <<'PY'
           import hashlib,json,pathlib,shutil,sys
-          root=pathlib.Path('source/Resources/Lexicons'); out=pathlib.Path('out'); assets=out/'assets'; packs=[]
+          root=pathlib.Path('Lexicons'); out=pathlib.Path('out'); assets=out/'assets'; packs=[]
           for clex in sorted(root.glob('*.clex')):
             code=clex.stem; files=[]
             for p in [*root.glob(code+'.*'), root/(code+'.mlmodelc')]:
