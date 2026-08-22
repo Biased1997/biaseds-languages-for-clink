@@ -35,15 +35,21 @@ Community language repositories are for languages that Clink does not maintain i
 
 ### Before you start
 
-You do **not** write a `.clex` file by hand. It is Clink's compact dictionary format. Start with the thing you probably already have: a plain UTF-8 word list. Put one word on each line, or use `word<TAB>frequency` when you know which words are more common.
+You do **not** write a `.clex` file by hand. It is Clink's compact dictionary format. Start with a plain UTF-8 text file: one word per line. That is enough. You can add frequencies later if you need them.
 
 The pack builder turns that list into the `.clex` file Clink reads. A next-word model, neural model, and input-method table are all optional. A good first community pack is just a clean word list and its compiled dictionary.
 
 ### Publish your first language
 
 1. Create a public GitHub repository. Give it a clear name such as `toki-pona-clink`.
-2. Add your source word list to the repository. Keep it human-readable, so your community can review and improve it.
-3. Run the Clink pack builder for your language. It creates `<language-code>.clex` in `Lexicons/`. Language codes are short and lowercase. Use `_` for a regional code such as `pt_br`.
+2. Make a folder called `source`, then add your word list as `source/tok.txt`. Replace `tok` with your language code. For Toki Pona, the file can simply contain `pona`, `toki`, `jan`, and the rest of your words, one per line.
+3. Copy `build-pack.py` from this repository and run this exact command in your repository:
+
+   ```sh
+   python3 build-pack.py tok source/tok.txt
+   ```
+
+   It creates `Lexicons/tok.clex`. That is the file Clink needs. Language codes are short and lowercase. Use `_` for regional codes such as `pt_br`.
 4. Copy the release workflow from [this repository](.github/workflows/release.yml). The workflow gathers the compiled files, records each file's byte count and SHA-256 hash, then publishes the manifest and assets together.
 5. Push a version tag beginning with `v`, for example `v2026.09.01`. GitHub Actions publishes:
 
