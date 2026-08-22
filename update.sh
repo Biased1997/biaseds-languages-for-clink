@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Publish a new immutable language-pack release. This repository only holds the
-# release pipeline; the workflow fetches the current Clink-iOS source itself.
+# Publish a new immutable language-pack release from the assets in Lexicons/.
 
 repo_dir="$(cd "$(dirname "$0")" && pwd)"
 cd "$repo_dir"
