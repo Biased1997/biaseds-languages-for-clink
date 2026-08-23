@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="icon-1024.png" width="96" alt="Clink app icon">
+  <img src="https://raw.githubusercontent.com/anti-ltd/clink-language-packs/main/icon-1024.png" width="96" alt="Clink app icon">
 </p>
 
 <h1 align="center">Clink language packs</h1>
@@ -10,9 +10,9 @@ Clink ships English in the app, then downloads the languages you choose. A pack 
 
 ## Official Clink repositories
 
-[Language packs](https://github.com/anti-ltd/clink-language-packs) · [Layouts](https://github.com/anti-ltd/clink-layouts) · [Profiles](https://github.com/anti-ltd/clink-profiles) · [Themes](https://github.com/anti-ltd/clink-themes) · [Panels](https://github.com/anti-ltd/clink-panels) · [Actions](https://github.com/anti-ltd/clink-actions)
+[Language packs](https://github.com/anti-ltd/clink-language-packs) · [Layouts](https://github.com/anti-ltd/clink-layouts) · [Profiles](https://github.com/anti-ltd/clink-profiles) · [Themes](https://github.com/anti-ltd/clink-themes) · [Panels](https://github.com/anti-ltd/clink-panels) · [Actions](https://github.com/anti-ltd/clink-actions) · [Fonts](https://github.com/anti-ltd/clink-fonts) · [Sounds](https://github.com/anti-ltd/clink-sounds)
 
-## Supported languages
+## Included languages
 
 | | | |
 |---|---|---|
@@ -146,3 +146,7 @@ Clink only accepts public HTTPS GitHub release manifests. It derives the manifes
 Files are downloaded into a staging directory. Clink activates a pack only after every file has passed verification and the required `.clex` file exists. If a release fails at any point, the previous verified pack remains active.
 
 Adding a repository is still a trust decision. Only add repositories run by people or communities you trust to publish language data.
+
+## Publishing is automatic
+
+Keep `Lexicons/`, `tools/`, and `.github/workflows/` in your fork. Build or update a language pack, run the validation tools, and push to `main`. GitHub Actions builds the release manifest and refreshes the release assets so Clink can download the verified pack.
