@@ -139,6 +139,16 @@ The tool writes `Lexicons/tok.mlmodelc/` and `Lexicons/tok.bpevocab`. Keep both.
 
 After the GitHub Action publishes your first release, open **General → Repositories** in Clink and enter `owner/repository`, for example `your-name/toki-pona-clink`. Then open **Languages**. Your packs appear in **Community**, separate from Clink's own packs. Clink never bundles, recommends, or silently adds community repositories.
 
+## Make a language pack with an AI agent
+
+[`PROMPT.md`](PROMPT.md) is a ready-to-use brief for an AI coding agent. Fork the repository, open the fork in your agent, and say:
+
+```text
+Read PROMPT.md and create a language pack for [language and locale], starting with this word-list source: [describe or provide it].
+```
+
+The prompt starts with a generated dictionary—the only required asset—and adds prediction, IME, or neural assets only when the requested language and licensed source data warrant them. Review the language data, quality, and licensing before publishing.
+
 ## What Clink verifies
 
 Clink only accepts public HTTPS GitHub release manifests. It derives the manifest address from the repository URL, so a repository cannot point the app at an unrelated host. Every download must come from that same GitHub repository's release, use an approved language-pack file type, stay within size limits, match the manifest's byte count, and match its SHA-256 hash.
